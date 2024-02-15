@@ -1,8 +1,35 @@
 # importar bibliotecas
 import pymongo
 
-# conexcion con mongoDB
+# uri de mongo atlas
+uri = "mongodb+srv://JuanVidal:sena123@cluster0.xvgr1vn.mongodb.net/?retryWrites=true&w=majority"
+# conexion con mongo atlas
+conexion = pymongo.MongoClient(uri)
+# conexion a la base de datos
+db = conexion["sena-prueba"]
+# seleccionar la coleccion
+coleccion = db["aprendices"]
+
+def todos_aprendices():
+    try:
+        # obtener todos los aprendices
+        aprendices = coleccion.find()
+        # verificando si hay aprendices
+        if aprendices:
+            for aprendiz in aprendices:
+                print(aprendiz)
+        else:
+            print("No hay aprendices!")
+
+    except Exception as error:
+        print("Error: ", error)
+
+todos_aprendices()
+
+"""
+# conexion mongoDB de manera local
 conexion = pymongo.MongoClient("localhost", 27017)
+"""
 # conexion = pymongo.MongoClient("mongodb://localhost:27017")
 # seleccionar DB
 baseDatos = conexion["tienda"]
